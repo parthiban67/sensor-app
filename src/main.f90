@@ -1,8 +1,12 @@
 program main
+
 	use util_mod
+	use sensor_emit_mod
 	
 	implicit none
+	
 	integer::menu_option = -1
+	call test()
 	call print_line_separator('*',80)
 	call print_center_text("Welcome to Sensor Processor App",80)
 	call print_line_separator('*',80)
