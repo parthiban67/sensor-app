@@ -1,1 +1,3 @@
-test
+&EMITLIST
+ TEMPERATURE=  10.0000000    ,
+ /

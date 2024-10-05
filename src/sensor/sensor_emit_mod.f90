@@ -1,16 +1,15 @@
 module sensor_emit_mod
 
-	use sensor_data_mod
-	
-	implicit none
-	
-	contains
-	
-	subroutine test()
-		integer::io_unit
-		open(newunit=io_unit,file=get_sensor_data_file(),status='REPLACE')
-		write(io_unit,"(A)") "test"
-		close(unit=io_unit)
-	end subroutine test
-	
+        implicit none
+       
+        interface
+                module subroutine emit(times)
+                        implicit none
+                        integer,intent(in)::times
+                end subroutine emit
+                module subroutine handle_menu_option()
+                        implicit none
+                end subroutine handle_menu_option
+        end interface
+  
 end module sensor_emit_mod
