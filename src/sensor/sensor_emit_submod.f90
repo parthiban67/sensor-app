@@ -1,6 +1,7 @@
         submodule (sensor_emit_mod) sensor_emit_submod                
                 
                 use util_mod
+                use random_mod
                 use sensor_data_mod
                 use sensor_persistence_mod
 
@@ -10,8 +11,12 @@
 
                 module procedure emit
                         type(sensor_data)::sdata
-                        sdata = sensor_data(real(times))
-                        call writeRow(sdata)
+                        integer::i
+                        do i = 1,times
+                                ! type initialization like ctor
+                                sdata = sensor_data(get_random_number())
+                                call writeRow(sdata)
+                        end do
                 end procedure emit       
        
                 module procedure handle_menu_option
