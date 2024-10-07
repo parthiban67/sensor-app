@@ -10,13 +10,14 @@
                 contains
 
                 module procedure emit
-                        type(sensor_data)::sdata
+                        type(sensor_data),dimension(times)::sdata
                         integer::i
                         do i = 1,times
                                 ! type initialization like ctor
-                                sdata = sensor_data(get_random_number())
-                                call writeRow(sdata)
+                                sdata(i:i) = sensor_data(get_random_num&
+                                &ber())
                         end do
+                        call write_row(sdata)
                 end procedure emit       
        
                 module procedure handle_menu_option
