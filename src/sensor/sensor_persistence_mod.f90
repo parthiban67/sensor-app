@@ -16,4 +16,10 @@
                         end subroutine write_multiple_row
                 end interface write_row
 
+                interface
+                        module subroutine clear_rows()
+                                implicit none
+                        end subroutine clear_rows
+                end interface
+
         end module sensor_persistence_mod

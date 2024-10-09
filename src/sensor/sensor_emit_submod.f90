@@ -20,12 +20,17 @@
                         call write_row(sdata)
                 end procedure emit       
        
+                module procedure clear
+                        call clear_rows()
+                end procedure clear
+
                 module procedure handle_menu_option
                         integer::menu_option = -1
                         integer::emit_times = 0
                         do
                                 call print_text("Sensor Emit Menu")
-                                call print_text("Emit Into File[1]")
+                                call print_text("Emit Into File [1]")
+                                call print_text("Clear File [2]")
                                 call print_text("Exit [-1]")
                                 call print_text("Enter the menu option")
                                 read(*,*) menu_option
@@ -38,6 +43,9 @@
                                         &t times: ")
                                         read(*,*) emit_times
                                         call emit(emit_times)
+                                elseif (menu_option == 2) then
+                                        call clear()
+                                        call print_text("File cleared")
                                 end if
                         end do
                 end procedure handle_menu_option

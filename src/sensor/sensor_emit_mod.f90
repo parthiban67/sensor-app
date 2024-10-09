@@ -7,6 +7,9 @@ module sensor_emit_mod
                         implicit none
                         integer,intent(in)::times
                 end subroutine emit
+                module subroutine clear()
+                        implicit none
+                end subroutine clear
                 module subroutine handle_menu_option()
                         implicit none
                 end subroutine handle_menu_option
