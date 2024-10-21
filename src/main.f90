@@ -1,11 +1,12 @@
         program main
         
         use util_mod
-        use sensor_emit_mod
+        use sensor_emit_mod, emit_menu_option => handle_menu_option
         
         implicit none
         
         integer::menu_option = -1
+
         call print_line_separator('*',80)
         call print_center_text("Welcome to Sensor Processor App",80)
         call print_line_separator('*',80)
@@ -20,7 +21,7 @@
                         call print_text("Exiting from main menu...")
                         exit
                 else if(menu_option == 1) then
-                        call handle_menu_option()
+                        call emit_menu_option()
                 end if
         end do
         end program main

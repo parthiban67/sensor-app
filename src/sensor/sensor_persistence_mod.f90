@@ -20,6 +20,10 @@
                         module subroutine clear_rows()
                                 implicit none
                         end subroutine clear_rows
+                        module function read_rows() result(sd_list)
+                                implicit none
+                                type(sensor_data_list)::sd_list
+                        end function read_rows
                 end interface
 
         end module sensor_persistence_mod

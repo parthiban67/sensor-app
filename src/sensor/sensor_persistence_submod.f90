@@ -59,4 +59,24 @@
                         end if
                 end procedure clear_rows
 
+                module procedure read_rows
+                        integer::io_unit,i,io_stat
+                        sd_list = sensor_data_list()
+                        
+                        if (is_file_exists()) then
+                                open(newunit=io_unit,file=get_sensor_data_file()&
+                                     &,status='old',action='read')
+
+                                do 
+                                        read(unit=io_unit,nml=emitlist,iostat=io_stat)
+                                        if (io_stat < 0) then
+                                                exit
+                                        end if
+                                        call sd_list%push(temperature)
+                                end do
+                                close(unit=io_unit)
+                        end if
+                        return
+                end procedure read_rows
+
         end submodule sensor_persistence_submod
