@@ -22,9 +22,11 @@ module sensor_data_mod
                 procedure,pass::shift
                 procedure,pass::unshift
                 procedure,pass::clear_list
+                procedure,pass::for_each
                 final::finalize
         end type sensor_data_list
 
+        
         contains 
         
         subroutine finalize(this)
@@ -142,5 +144,29 @@ module sensor_data_mod
                 return
 
         end subroutine read_list
+
+        subroutine for_each(this,cb)
+                implicit none
+                interface
+                         module subroutine cb(s_data)
+                         implicit none
+                         class(sensor_data),intent(inout)::s_data
+                        end subroutine cb
+                end interface
+
+                class(sensor_data_list),intent(in)::this
+                external::cb
+                class(sensor_data_node),pointer::temp => null()
+
+                temp => this%head
+                do
+                        if(.not. associated(temp)) then
+                                exit
+                        end if
+                        call cb(temp)
+                        temp => temp%next
+
+                end do
+        end subroutine for_each
 
 end module sensor_data_mod
