@@ -30,8 +30,9 @@ module sensor_data_mod
         contains 
         
         subroutine finalize(this)
-                type(sensor_data_list),intent(in)::this
-                write(*,*) "called"
+                type(sensor_data_list),intent(inout)::this
+                ! Working, but not clear when 
+                ! it's getting invoked
         end subroutine finalize
 
         subroutine clear_list(this)

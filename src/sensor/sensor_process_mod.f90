@@ -32,6 +32,29 @@
                         end subroutine process_avg
                 end subroutine calc_avg
 
+                subroutine calc_max()
+                        implicit none
+                        type(sensor_data_list)::sd_list
+                        real::max_temp = 0.0
+                        character(len=20)::str
+                        sd_list = read_rows()
+                        call sd_list%for_each(process_max)
+                        call sd_list%clear_list()
+                        write(str,'(F10.2)') max_temp
+                        call print_text("Sensor Max temperature is "&
+                        & // str)
+                        
+                        contains
+
+                        subroutine process_max(s_data)
+                                class(sensor_data),intent(inout)::s_data
+                                if (max_temp < s_data%temperature) then
+                                        max_temp = s_data%temperature
+                                end if
+                                return
+                        end subroutine
+                end subroutine
+
                 subroutine handle_menu_option
                         integer::menu_option = -1
                         integer::emit_times = 0
@@ -50,7 +73,7 @@
                                 elseif (menu_option == 1) then
                                         call calc_avg()
                                 elseif (menu_option == 2) then
-
+                                        call calc_max()
                                 elseif (menu_option == 3) then
 
                                 end if
