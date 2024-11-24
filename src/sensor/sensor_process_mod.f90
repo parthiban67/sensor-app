@@ -54,6 +54,29 @@
                                 return
                         end subroutine
                 end subroutine
+                
+                subroutine calc_min()
+                        implicit none
+                        type(sensor_data_list)::sd_list
+                        real::min_temp = 1000.0
+                        character(len=20)::str
+                        sd_list = read_rows()
+                        call sd_list%for_each(process_min)
+                        call sd_list%clear_list()
+                        write(str,'(F10.2)') min_temp
+                        call print_text("Sensor Min temperature is "&
+                        & // str)
+                        
+                        contains
+
+                        subroutine process_min(s_data)
+                                class(sensor_data),intent(inout)::s_data
+                                if (min_temp > s_data%temperature) then
+                                        min_temp = s_data%temperature
+                                end if
+                                return
+                        end subroutine
+                end subroutine
 
                 subroutine handle_menu_option
                         integer::menu_option = -1
@@ -75,7 +98,7 @@
                                 elseif (menu_option == 2) then
                                         call calc_max()
                                 elseif (menu_option == 3) then
-
+                                        call calc_min()
                                 end if
                         end do
                 end subroutine handle_menu_option
